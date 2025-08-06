@@ -1,0 +1,44 @@
+{
+“version”: 2,
+“name”: “framekraft”,
+“builds”: [
+{
+“src”: “dist/index.js”,
+“use”: “@vercel/node”,
+“config”: {
+“maxLambdaSize”: “50mb”
+}
+}
+],
+“routes”: [
+{
+“src”: “/health”,
+“dest”: “/dist/index.js”
+},
+{
+“src”: “/api/(.*)”,
+“dest”: “/dist/index.js”
+},
+{
+“src”: “/(.*)”,
+“dest”: “/dist/index.js”
+}
+],
+“buildCommand”: “npm ci && npm run build”,
+“installCommand”: “npm ci”,
+“outputDirectory”: “dist”,
+“framework”: null,
+“functions”: {
+“dist/index.js”: {
+“maxDuration”: 30
+}
+},
+“env”: {
+“NODE_ENV”: “production”
+},
+“build”: {
+“env”: {
+“NODE_ENV”: “production”
+}
+}
+}
